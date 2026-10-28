@@ -1,0 +1,5 @@
+[
+  {"id": 1, "title": "Draft release notes", "archived": false},
+  {"id": 2, "title": "Ship last release", "archived": true},
+  {"id": 3, "title": "Check export", "archived": false}
+]

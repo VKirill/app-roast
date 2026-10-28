@@ -1,0 +1,526 @@
+{
+  "generated_utc": "2026-10-28T14:30:59.127392+00:00",
+  "scope": "Synthetic Pocket Tasks fixture; each call is a separate process. Commands have normalized interpreter and temporary paths for portability; recorded outputs are unchanged.",
+  "cases": [
+    {
+      "case": "add-1",
+      "calls": [
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/add-1.json",
+            "add",
+            "New durable task"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"message\": \"Saved\", \"task\": {\"id\": 4, \"title\": \"New durable task\", \"archived\": false}}\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/add-1.json",
+            "list",
+            "--all"
+          ],
+          "exit_code": 0,
+          "stdout": "[{\"id\": 1, \"title\": \"Draft release notes\", \"archived\": false}, {\"id\": 2, \"title\": \"Ship last release\", \"archived\": true}, {\"id\": 3, \"title\": \"Check export\", \"archived\": false}]\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/add-1.json",
+            "show",
+            "4"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"error\": \"Task not found\"}\n",
+          "stderr": ""
+        }
+      ],
+      "final_database": [
+        {
+          "id": 1,
+          "title": "Draft release notes",
+          "archived": false
+        },
+        {
+          "id": 2,
+          "title": "Ship last release",
+          "archived": true
+        },
+        {
+          "id": 3,
+          "title": "Check export",
+          "archived": false
+        }
+      ]
+    },
+    {
+      "case": "counts-1",
+      "calls": [
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/counts-1.json",
+            "list"
+          ],
+          "exit_code": 0,
+          "stdout": "[{\"id\": 1, \"title\": \"Draft release notes\", \"archived\": false}, {\"id\": 3, \"title\": \"Check export\", \"archived\": false}]\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/counts-1.json",
+            "stats"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"active\": 3, \"total\": 3}\n",
+          "stderr": ""
+        }
+      ],
+      "final_database": [
+        {
+          "id": 1,
+          "title": "Draft release notes",
+          "archived": false
+        },
+        {
+          "id": 2,
+          "title": "Ship last release",
+          "archived": true
+        },
+        {
+          "id": 3,
+          "title": "Check export",
+          "archived": false
+        }
+      ]
+    },
+    {
+      "case": "export-1",
+      "calls": [
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/export-1.json",
+            "list"
+          ],
+          "exit_code": 0,
+          "stdout": "[{\"id\": 1, \"title\": \"Draft release notes\", \"archived\": false}, {\"id\": 3, \"title\": \"Check export\", \"archived\": false}]\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/export-1.json",
+            "export",
+            "--status",
+            "active"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"tasks\": [{\"id\": 1, \"title\": \"Draft release notes\", \"archived\": false}, {\"id\": 2, \"title\": \"Ship last release\", \"archived\": true}, {\"id\": 3, \"title\": \"Check export\", \"archived\": false}], \"status\": \"active\"}\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/export-1.json",
+            "export",
+            "--status",
+            "all"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"tasks\": [{\"id\": 1, \"title\": \"Draft release notes\", \"archived\": false}, {\"id\": 2, \"title\": \"Ship last release\", \"archived\": true}, {\"id\": 3, \"title\": \"Check export\", \"archived\": false}], \"status\": \"all\"}\n",
+          "stderr": ""
+        }
+      ],
+      "final_database": [
+        {
+          "id": 1,
+          "title": "Draft release notes",
+          "archived": false
+        },
+        {
+          "id": 2,
+          "title": "Ship last release",
+          "archived": true
+        },
+        {
+          "id": 3,
+          "title": "Check export",
+          "archived": false
+        }
+      ]
+    },
+    {
+      "case": "missing-1",
+      "calls": [
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/missing-1.json",
+            "show",
+            "9999"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"error\": \"Task not found\"}\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/missing-1.json",
+            "show",
+            "1"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"id\": 1, \"title\": \"Draft release notes\", \"archived\": false}\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/missing-1.json",
+            "archive",
+            "9999"
+          ],
+          "exit_code": 1,
+          "stdout": "",
+          "stderr": "Task not found\n"
+        }
+      ],
+      "final_database": [
+        {
+          "id": 1,
+          "title": "Draft release notes",
+          "archived": false
+        },
+        {
+          "id": 2,
+          "title": "Ship last release",
+          "archived": true
+        },
+        {
+          "id": 3,
+          "title": "Check export",
+          "archived": false
+        }
+      ]
+    },
+    {
+      "case": "add-2",
+      "calls": [
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/add-2.json",
+            "add",
+            "New durable task"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"message\": \"Saved\", \"task\": {\"id\": 4, \"title\": \"New durable task\", \"archived\": false}}\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/add-2.json",
+            "list",
+            "--all"
+          ],
+          "exit_code": 0,
+          "stdout": "[{\"id\": 1, \"title\": \"Draft release notes\", \"archived\": false}, {\"id\": 2, \"title\": \"Ship last release\", \"archived\": true}, {\"id\": 3, \"title\": \"Check export\", \"archived\": false}]\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/add-2.json",
+            "show",
+            "4"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"error\": \"Task not found\"}\n",
+          "stderr": ""
+        }
+      ],
+      "final_database": [
+        {
+          "id": 1,
+          "title": "Draft release notes",
+          "archived": false
+        },
+        {
+          "id": 2,
+          "title": "Ship last release",
+          "archived": true
+        },
+        {
+          "id": 3,
+          "title": "Check export",
+          "archived": false
+        }
+      ]
+    },
+    {
+      "case": "counts-2",
+      "calls": [
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/counts-2.json",
+            "list"
+          ],
+          "exit_code": 0,
+          "stdout": "[{\"id\": 1, \"title\": \"Draft release notes\", \"archived\": false}, {\"id\": 3, \"title\": \"Check export\", \"archived\": false}]\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/counts-2.json",
+            "stats"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"active\": 3, \"total\": 3}\n",
+          "stderr": ""
+        }
+      ],
+      "final_database": [
+        {
+          "id": 1,
+          "title": "Draft release notes",
+          "archived": false
+        },
+        {
+          "id": 2,
+          "title": "Ship last release",
+          "archived": true
+        },
+        {
+          "id": 3,
+          "title": "Check export",
+          "archived": false
+        }
+      ]
+    },
+    {
+      "case": "export-2",
+      "calls": [
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/export-2.json",
+            "list"
+          ],
+          "exit_code": 0,
+          "stdout": "[{\"id\": 1, \"title\": \"Draft release notes\", \"archived\": false}, {\"id\": 3, \"title\": \"Check export\", \"archived\": false}]\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/export-2.json",
+            "export",
+            "--status",
+            "active"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"tasks\": [{\"id\": 1, \"title\": \"Draft release notes\", \"archived\": false}, {\"id\": 2, \"title\": \"Ship last release\", \"archived\": true}, {\"id\": 3, \"title\": \"Check export\", \"archived\": false}], \"status\": \"active\"}\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/export-2.json",
+            "export",
+            "--status",
+            "all"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"tasks\": [{\"id\": 1, \"title\": \"Draft release notes\", \"archived\": false}, {\"id\": 2, \"title\": \"Ship last release\", \"archived\": true}, {\"id\": 3, \"title\": \"Check export\", \"archived\": false}], \"status\": \"all\"}\n",
+          "stderr": ""
+        }
+      ],
+      "final_database": [
+        {
+          "id": 1,
+          "title": "Draft release notes",
+          "archived": false
+        },
+        {
+          "id": 2,
+          "title": "Ship last release",
+          "archived": true
+        },
+        {
+          "id": 3,
+          "title": "Check export",
+          "archived": false
+        }
+      ]
+    },
+    {
+      "case": "missing-2",
+      "calls": [
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/missing-2.json",
+            "show",
+            "9999"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"error\": \"Task not found\"}\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/missing-2.json",
+            "show",
+            "1"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"id\": 1, \"title\": \"Draft release notes\", \"archived\": false}\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/missing-2.json",
+            "archive",
+            "9999"
+          ],
+          "exit_code": 1,
+          "stdout": "",
+          "stderr": "Task not found\n"
+        }
+      ],
+      "final_database": [
+        {
+          "id": 1,
+          "title": "Draft release notes",
+          "archived": false
+        },
+        {
+          "id": 2,
+          "title": "Ship last release",
+          "archived": true
+        },
+        {
+          "id": 3,
+          "title": "Check export",
+          "archived": false
+        }
+      ]
+    },
+    {
+      "case": "archive-counterexample",
+      "calls": [
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/archive-counterexample.json",
+            "archive",
+            "1"
+          ],
+          "exit_code": 0,
+          "stdout": "{\"message\": \"Archived\", \"id\": 1}\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/archive-counterexample.json",
+            "list"
+          ],
+          "exit_code": 0,
+          "stdout": "[{\"id\": 3, \"title\": \"Check export\", \"archived\": false}]\n",
+          "stderr": ""
+        },
+        {
+          "command": [
+            "python3",
+            "evals/fixtures/pocket_tasks.py",
+            "--db",
+            "<temporary>/archive-counterexample.json",
+            "list",
+            "--all"
+          ],
+          "exit_code": 0,
+          "stdout": "[{\"id\": 1, \"title\": \"Draft release notes\", \"archived\": true}, {\"id\": 2, \"title\": \"Ship last release\", \"archived\": true}, {\"id\": 3, \"title\": \"Check export\", \"archived\": false}]\n",
+          "stderr": ""
+        }
+      ],
+      "final_database": [
+        {
+          "id": 1,
+          "title": "Draft release notes",
+          "archived": true
+        },
+        {
+          "id": 2,
+          "title": "Ship last release",
+          "archived": true
+        },
+        {
+          "id": 3,
+          "title": "Check export",
+          "archived": false
+        }
+      ]
+    }
+  ]
+}

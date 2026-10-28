@@ -1,0 +1,43 @@
+#!/usr/bin/env python3
+"""Create an App Roast run without overwriting an existing report (stdlib only)."""
+
+import argparse
+from datetime import datetime, timezone
+import json
+from pathlib import Path
+import re
+
+
+def main():
+    parser = argparse.ArgumentParser(description=__doc__)
+    parser.add_argument("--target", required=True)
+    parser.add_argument("--output", type=Path, help="New or empty run directory")
+    parser.add_argument("--language", default="en")
+    parser.add_argument("--tone", choices=("professional", "roast", "brutal"), default="roast")
+    args = parser.parse_args()
+    now = datetime.now(timezone.utc)
+    slug = re.sub(r"[^a-z0-9]+", "-", args.target.lower()).strip("-")[:48] or "app"
+    output = args.output or Path("app-roast") / (now.strftime("%Y%m%dT%H%M%S%fZ-") + slug)
+    template = Path(__file__).resolve().parents[1] / "assets" / "report-template.md"
+    text = template.read_text(encoding="utf-8")
+    values = {
+        "title_yaml": "App Roast: " + args.target,
+        "target_yaml": args.target,
+        "created_yaml": now.isoformat(timespec="seconds"),
+        "language_yaml": args.language,
+        "tone_yaml": args.tone,
+    }
+    text = re.sub(r"\{\{(\w+)\}\}", lambda m: json.dumps(values[m.group(1)], ensure_ascii=False), text)
+    output.mkdir(parents=True, exist_ok=True)
+    report = output / "report.md"
+    try:
+        with report.open("x", encoding="utf-8") as handle:
+            handle.write(text)
+    except FileExistsError:
+        parser.exit(2, f"Report already exists; resume it or choose a new directory: {report}\n")
+    (output / "evidence").mkdir(exist_ok=True)
+    print(report.resolve())
+
+
+if __name__ == "__main__":
+    main()

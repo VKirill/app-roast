@@ -1,0 +1,4 @@
+interface:
+  display_name: "App Roast"
+  short_description: "Find app contradictions and maintain a live audit"
+  default_prompt: "Use $app-roast to investigate this application's contradictions and maintain an evidence-backed audit document with a roast and repair backlog."
