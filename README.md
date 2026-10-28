@@ -92,7 +92,7 @@ The report contains:
 
 ## Optional GitNexus
 
-When available, the agent checks the target index and uses exposed tools such as `query`, `context`, `trace`, `route_map`, and `shape_check` where relevant. Advanced tools vary by version. A graph mismatch is a lead; the agent must inspect the active implementation before treating it as a code-confirmed defect. A missing/stale index falls back to ordinary source search without blocking the audit. [Integration details](skills/app-roast/references/gitnexus.md).
+When available, the agent checks the target index and uses exposed tools such as `query`, `context`, `trace`, `route_map`, and `shape_check` where relevant. **A stale target index is automatically refreshed and its freshness verified before use**, including in audit-only mode. The refresh updates derived index data, not application source or repository instruction files. Advanced tools vary by version. A graph mismatch is a lead; the agent must inspect the active implementation before treating it as a code-confirmed defect. An absent tool or genuinely blocked/failed refresh falls back to current source search with the reason recorded. [Integration details](skills/app-roast/references/gitnexus.md).
 
 ## Development and limits
 

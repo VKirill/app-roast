@@ -2,7 +2,7 @@
 name: app-roast
 description: "Evidence-driven application roast: uncover contradictions between product promises, UI, runtime behavior, APIs, and code; maintain a live, hierarchical audit document with findings, proof, coverage, and a repair backlog. Use for requests to roast an app, hunt product inconsistencies, or critically audit end-to-end behavior. Not for roasting people or ordinary feature implementation."
 metadata:
-  version: "0.1.0"
+  version: "0.1.1"
   license: MIT
 ---
 
@@ -55,9 +55,9 @@ For each core scenario record: actor/role → preconditions → action → promi
 - **Runtime only:** validate what the user sees and what the exposed API/CLI returns. Mark the internal cause as unknown unless independently established.
 - **Source only:** trace the reachable path end to end, including wrappers, feature flags, adapters, validation, and persistence. State explicitly that runtime was not exercised.
 
-Use browser/device/CLI tools already available. Do not assume a particular automation provider. If GitNexus is exposed or already installed, read [references/gitnexus.md](references/gitnexus.md), check index suitability, and use relevant graph tools to trace cross-layer contradictions. GitNexus is optional: a missing, stale, or incomplete index never blocks ordinary source search and runtime checks.
+Use browser/device/CLI tools already available. Do not assume a particular automation provider. If GitNexus is exposed or already installed, read [references/gitnexus.md](references/gitnexus.md), check index suitability, and use relevant graph tools to trace cross-layer contradictions. **If its target index is stale, refresh it to the current working tree and verify freshness before using graph results.** This is part of the audit, including audit-only mode; do not skip it or ask for separate confirmation merely because the index is behind. Respect explicit user restrictions on index writes. Fall back to source search when GitNexus is absent or a refresh is actually blocked or fails, recording the specific reason.
 
-Keep the audit's side effects within existing authorization. Use disposable local/test data for write journeys; do not exercise real payments, message sending, destructive production actions, or privilege changes merely to complete a checklist. Record unavailable coverage. Do not install tools, rewrite agent configuration, or create/refresh indexes as an unannounced prerequisite.
+Keep the audit's side effects within existing authorization. Use disposable local/test data for write journeys; do not exercise real payments, message sending, destructive production actions, or privilege changes merely to complete a checklist. Record unavailable coverage. Announce a needed GitNexus refresh and record it in the work hierarchy; perform it without changing application source or repository instruction files. Do not install tools or rewrite agent configuration as an unannounced prerequisite.
 
 ## 4. Investigate and persist each contradiction
 

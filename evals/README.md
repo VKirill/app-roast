@@ -71,3 +71,7 @@ The resume evaluator identified one wording ambiguity: “never overwrite an exi
 The trigger near misses were reviewed against the frontmatter description; automatic host routing was not exercised. GitNexus's actual graph integration, browser/device automation, production authentication, intermittent concurrency failures, and large applications were not end-to-end tested. The absent-index fallback was exercised. A single synthetic evaluation does not establish performance on arbitrary production applications.
 
 The report initializer passed three standard-library tests for metadata quoting, preservation of an existing report, and distinct default run directories. Run them with `python3 -m unittest discover -s tests -v`.
+
+### v0.1.1: stale GitNexus indexes
+
+The workflow now requires automatic refresh of an existing stale target index, followed by freshness verification, including audit-only runs. The installed GitNexus analyzer's help was inspected to verify `analyze --index-only` and its promise to suppress instruction/skill file injection. The entrypoint, integration reference, template, and both READMEs were checked for consistent refresh/fallback behavior. Skill frontmatter and resource links were validated. This documentation change was not subjected to another end-to-end graph run; the earlier absent-index evaluation remains applicable only to fallback behavior.

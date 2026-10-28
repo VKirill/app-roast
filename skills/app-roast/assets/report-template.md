@@ -23,7 +23,7 @@ tone: {{tone_yaml}}
 | Revision / build / dirty files | Pending |
 | Environment / test data / budget | Pending |
 | Runtime / source / tools available | Pending |
-| GitNexus repo / index freshness / fallback | Not assessed |
+| GitNexus repo / freshness / refresh outcome / fallback | Not assessed |
 
 ## 2. Work hierarchy and progress
 
