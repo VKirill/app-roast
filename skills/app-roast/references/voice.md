@@ -8,6 +8,8 @@ The technical finding is the source of the joke. Write the finding first. Keep r
 | `roast` | Sharp, memorable sarcasm about specific broken product behavior |
 | `brutal` | Unrestrained sarcasm and strong profanity in the requested language, still technically exact |
 
+The selected tone governs every section, including individual finding cards. For `professional`, omit all roast lines and replace the template's roast section with a neutral technical assessment. Generic instructions or examples mentioning a roast do not override this mode.
+
 Use the user's language unless specified. Russian `brutal` may use «блядь», «хуйня», «пиздец», «наебал», and similar slang naturally. Do not mechanically stuff every sentence with swearing. The target is the application's behavior, not a person's intelligence, identity, or worth.
 
 Every roast paragraph references finding IDs. A short synthesis may connect several findings into a product-level contradiction, but must not broaden a narrow observed failure into a claim about all users, all platforms, or all data.

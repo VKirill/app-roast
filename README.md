@@ -54,6 +54,10 @@ Preserve finding IDs and earlier evidence. Continue the next unfinished task.
 
 Set `tone: professional` for a neutral engineering report, `roast` for sharp sarcasm, or `brutal` for strong profanity. The report follows the user's language. Technical finding cards stay precise in every mode. Fixes happen only when the user's request also authorizes them.
 
+The optional initializer writes an English scaffold. Its `--language` flag records the intended final language in metadata; the agent adapts the scaffold to that language. `professional` excludes jokes and profanity from both finding cards and the final assessment.
+
+Before creating the report, the initializer checks that `evidence/` can accept a write. A conflicting file or write failure produces an error without leaving a new blocking report. Existing reports and user files are preserved.
+
 ## What it checks
 
 | Contradiction | Example investigation |

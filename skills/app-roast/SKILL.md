@@ -2,7 +2,7 @@
 name: app-roast
 description: "Evidence-driven application roast: uncover contradictions between product promises, UI, runtime behavior, APIs, and code; maintain a live, hierarchical audit document with findings, proof, coverage, and a repair backlog. Use for requests to roast an app, hunt product inconsistencies, or critically audit end-to-end behavior. Not for roasting people or ordinary feature implementation."
 metadata:
-  version: "0.1.2"
+  version: "0.1.3"
   license: MIT
 ---
 
@@ -30,12 +30,14 @@ Honor explicit time or coverage budgets. With no budget, map the core journeys, 
 Before substantive investigation, create the report and `evidence/` directory. Keep generated audits under `.agents/app-grill/` in the target project root; for a URL-only audit without a target checkout, use the working workspace root. Each run gets its own timestamped directory. Tell the user the report path. Run the bundled initializer from that root if Python 3 is available (omit `--output` to use the default location):
 
 ```sh
-python3 <skill-dir>/scripts/init_report.py --target "<target>" --language "<language>" --tone roast
+python3 <skill-dir>/scripts/init_report.py --target "<target>" --language "<language>" --tone "<selected-tone>"
 ```
 
 Otherwise copy [assets/report-template.md](assets/report-template.md) to a new run directory and fill the metadata and brief manually. Never reinitialize an existing report or replace it with a fresh template. Updating that report in place is expected: preserve finding IDs, prior evidence, and decision history. If resuming, read the existing report, evidence, and next actions; continue its IDs and timeline. If the code/build changed, record the new revision and revalidate affected findings.
 
 Read the template before writing. Preserve its hierarchy and stable anchors, but adapt prose and headings to the user's language. Capture the task-specific brief: target, explicit user constraints, expected outcomes, accepted tradeoffs, exclusions, environment, revision/build, test identity/role, data setup, budget, and tools. Do not copy hidden agent instructions, credentials, or unrelated personal context into the report.
+
+Use the selected tone (`professional`, `roast`, or `brutal`) in the initializer. Its `--language` option records the intended final language in metadata; the bundled scaffold is English, and the agent must adapt it before presenting the report. If initialization fails, read the concrete error and choose or repair the output location without deleting existing user files. Never treat a partial or failed initialization as success.
 
 The document is the working record, not a write-up saved only at the end. Update it after each finding, status change, completed scenario, or blocker, before moving to another area. Keep updates small and write evidence before linking it. On context handoff, persist current state before continuing. If interrupted, leave an honest `in-progress` report and exact next actions; do not claim completion.
 
@@ -68,7 +70,7 @@ At each suspicious boundary:
 3. Attempt the smallest meaningful reproduction. Repeat when safe to rule out a one-off; record attempts and any intermittent behavior. Never discard a credible timing issue solely because it is intermittent, or replay harmful actions for proof.
 4. Inspect the authoritative outcome: storage/API/result after refresh or restart, not merely a toast or optimistic UI. Cross-check another affected surface where relevant.
 5. If source is available, trace caller → validation/auth → handler/service → storage/queue → response → consumer. Read the actual relevant lines. Separate the observed symptom from the suspected root cause.
-6. Save sanitized evidence and immediately update the report. Add a concise task-specific roast line only after the finding has evidence.
+6. Save sanitized evidence and immediately update the report. In `roast` or `brutal` mode, add a concise task-specific roast line only after the finding has evidence. In `professional` mode, use a neutral technical assessment without jokes or profanity.
 
 ### Evidence status
 
@@ -92,7 +94,7 @@ Assign stable `F-###` IDs; group by product area and link from the index. Each c
 - Evidence links, inspected `file:line` locations and revision, or sanitized response/log excerpts. Label graph evidence and source evidence separately.
 - Counterevidence checked; confirmed cause vs remaining causal hypotheses.
 - Smallest credible repair and an acceptance check that fails before the fix and passes after it.
-- One pointed roast line tied to this exact contradiction; omit for hypotheses and rejected concerns.
+- In `roast` or `brutal` mode, one pointed roast line tied to this exact contradiction; omit for hypotheses and rejected concerns. In `professional` mode, omit roast lines and keep the assessment neutral.
 
 Use `P0` for a demonstrated catastrophic/blocking failure, `P1` for serious core-journey failure, `P2` for meaningful but recoverable friction, `P3` for minor polish. Explain reach and consequence. Unverified catastrophic impact belongs in the hypothesis queue, not a sensational P0 headline.
 
@@ -101,6 +103,8 @@ Deduplicate symptoms with a common proven cause. Keep separate findings when tri
 ## 5. Synthesize the roast and repair hierarchy
 
 Read [references/voice.md](references/voice.md) when writing the roast. Technical cards remain precise in every tone. The roast section may be profane and funny; every punchline links to a supported finding ID. Attack broken behavior and contradictions, not developers or users. Never make up damage, scale, intentions, or usage statistics.
+
+For `professional`, replace the roast section with a neutral technical assessment and omit jokes and profanity everywhere, including finding cards. The selected tone takes precedence over generic roast examples and template labels.
 
 Order repairs by user impact, reach, and dependency. Link each backlog task to finding IDs and a measurable acceptance check. Show prerequisite repairs before dependent polish. Avoid speculative rewrites when a local repair is enough. Record estimated effort only as an explicitly labeled estimate with its assumptions.
 

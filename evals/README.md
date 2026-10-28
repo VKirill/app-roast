@@ -79,3 +79,11 @@ The workflow now requires automatic refresh of an existing stale target index, f
 ### v0.1.2: audit location
 
 The default run directory is now `.agents/app-grill/<timestamp>-<target>/` relative to the target project root. The existing initializer test additionally checks that both generated report paths are under `.agents/app-grill/`; explicit output and overwrite-protection tests remain in place. The agent is instructed to invoke the initializer from the target project root, or working workspace for URL-only audits.
+
+### v0.1.3: self-audit repairs
+
+A self-audit reproduced two manifestations of one initializer defect: a file named `evidence` caused failure after creating `report.md`, blocking a normal retry, while an existing unwritable evidence directory was accepted with exit status 0. Both cases were repeated on disposable local directories. The initializer now prepares and probes evidence storage before creating the report, handles filesystem errors without a traceback, and removes only its own partial report if report writing fails. Existing reports remain protected.
+
+The current suite has six passing tests: the original three plus evidence-file conflict/retry, real evidence permission failure/retry, and an injected ENOSPC failure after a partial report write. The permission test skips only on platforms/process identities that can write despite the directory being read-only. All six ran without skips locally. GitHub CI also runs the suite.
+
+Two wording ambiguities were clarified: the selected tone overrides generic roast examples, and `professional` excludes jokes/profanity in all sections; `--language` is explicitly metadata for an English scaffold that the agent adapts. These clarifications received a cross-file consistency review, not another independent model-behavior evaluation. Prior graph/browser/device coverage limits remain unchanged.
