@@ -48,7 +48,7 @@ For the original Russian experience:
 To continue an interrupted run:
 
 ```text
-Resume app-roast from app-roast/<run>/report.md.
+Resume app-roast from .agents/app-grill/<run>/report.md.
 Preserve finding IDs and earlier evidence. Continue the next unfinished task.
 ```
 
@@ -71,10 +71,12 @@ Applicable to web, desktop, mobile, CLI, and API products. Runtime-only and sour
 ## The live document
 
 ```tree
-app-roast/<run>/
+.agents/app-grill/<run>/
 ├── report.md              # Brief, work hierarchy, findings, roast, repair backlog
 └── evidence/              # Sanitized logs, responses, screenshots, recordings
 ```
+
+The default path is relative to the target project root (or working workspace for URL-only audits). Each run has its own timestamped directory. An explicit output path overrides the default.
 
 The report contains:
 

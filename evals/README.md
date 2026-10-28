@@ -75,3 +75,7 @@ The report initializer passed three standard-library tests for metadata quoting,
 ### v0.1.1: stale GitNexus indexes
 
 The workflow now requires automatic refresh of an existing stale target index, followed by freshness verification, including audit-only runs. The installed GitNexus analyzer's help was inspected to verify `analyze --index-only` and its promise to suppress instruction/skill file injection. The entrypoint, integration reference, template, and both READMEs were checked for consistent refresh/fallback behavior. Skill frontmatter and resource links were validated. This documentation change was not subjected to another end-to-end graph run; the earlier absent-index evaluation remains applicable only to fallback behavior.
+
+### v0.1.2: audit location
+
+The default run directory is now `.agents/app-grill/<timestamp>-<target>/` relative to the target project root. The existing initializer test additionally checks that both generated report paths are under `.agents/app-grill/`; explicit output and overwrite-protection tests remain in place. The agent is instructed to invoke the initializer from the target project root, or working workspace for URL-only audits.

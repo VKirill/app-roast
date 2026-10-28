@@ -2,7 +2,7 @@
 name: app-roast
 description: "Evidence-driven application roast: uncover contradictions between product promises, UI, runtime behavior, APIs, and code; maintain a live, hierarchical audit document with findings, proof, coverage, and a repair backlog. Use for requests to roast an app, hunt product inconsistencies, or critically audit end-to-end behavior. Not for roasting people or ordinary feature implementation."
 metadata:
-  version: "0.1.1"
+  version: "0.1.2"
   license: MIT
 ---
 
@@ -21,16 +21,16 @@ Infer the target and constraints from the request and workspace. Ask only when a
 | Mode | Audit | Report findings; implement fixes only if the user's request also authorizes them |
 | Language | User's language | Keep technical identifiers unchanged |
 | Tone | Roast | Direct, sarcastic criticism of the product; `professional` removes jokes; `brutal` adds strong profanity |
-| Output | `app-roast/<UTC-timestamp>-<target-slug>/report.md` | Use a user-specified path when provided |
+| Output | `.agents/app-grill/<UTC-timestamp>-<target-slug>/report.md` | Relative to the target project root; use a user-specified path when provided |
 
 Honor explicit time or coverage budgets. With no budget, map the core journeys, investigate their highest-risk contradictions, and stop when those journeys are accounted for and a further pass produces no material new evidence. State remaining coverage; never invent a minimum number of bugs or a quality score.
 
 ## 1. Create the live document first
 
-Before substantive investigation, create the report and `evidence/` directory. Tell the user the report path. Use the bundled initializer if Python 3 is available:
+Before substantive investigation, create the report and `evidence/` directory. Keep generated audits under `.agents/app-grill/` in the target project root; for a URL-only audit without a target checkout, use the working workspace root. Each run gets its own timestamped directory. Tell the user the report path. Run the bundled initializer from that root if Python 3 is available (omit `--output` to use the default location):
 
 ```sh
-python3 <skill-dir>/scripts/init_report.py --target "<target>" --output "<new-run-directory>" --language "<language>" --tone roast
+python3 <skill-dir>/scripts/init_report.py --target "<target>" --language "<language>" --tone roast
 ```
 
 Otherwise copy [assets/report-template.md](assets/report-template.md) to a new run directory and fill the metadata and brief manually. Never reinitialize an existing report or replace it with a fresh template. Updating that report in place is expected: preserve finding IDs, prior evidence, and decision history. If resuming, read the existing report, evidence, and next actions; continue its IDs and timeline. If the code/build changed, record the new revision and revalidate affected findings.

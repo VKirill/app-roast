@@ -43,6 +43,8 @@ class InitReportTests(unittest.TestCase):
                      for _ in range(2)]
             self.assertNotEqual(*paths)
             self.assertTrue(all(Path(path).is_file() for path in paths))
+            expected_root = (Path(temporary) / ".agents" / "app-grill").resolve()
+            self.assertTrue(all(Path(path).parent.parent == expected_root for path in paths))
 
 
 if __name__ == "__main__":
